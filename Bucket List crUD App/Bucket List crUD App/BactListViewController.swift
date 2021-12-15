@@ -35,7 +35,7 @@ class BactListViewController: UITableViewController, AddDelegat {
     
     override func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
         
-        performSegue(withIdentifier: "editSegue", sender: indexPath)
+        performSegue(withIdentifier: "AddSegue", sender: indexPath)
     }
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         items.remove(at: indexPath.row)
@@ -44,11 +44,11 @@ class BactListViewController: UITableViewController, AddDelegat {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-        if segue.identifier == "AddSegue"{
+        if sender is UIBarButtonItem{
             let navegations = segue.destination as! UINavigationController
             let addItemsCon = navegations.topViewController as! AddItemsViewController
             addItemsCon.delgate = self
-        } else if segue.identifier == "editSegue"{
+        } else if sender is IndexPath{
             
             let navegations = segue.destination as! UINavigationController
             let addItemsCon = navegations.topViewController as! AddItemsViewController
