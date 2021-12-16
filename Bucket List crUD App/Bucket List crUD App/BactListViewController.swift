@@ -51,10 +51,22 @@ class BactListViewController: UITableViewController, AddDelegat {
         
     }
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        
+//        let nav2 = storyboard?.instantiateViewController(withIdentifier: "EditScreen") as! AddItemsViewController
+//        nav2.item = items[indexPath.row].text
+        //let deletedText = items[indexPath.row].text!
+
+//        delete(taskName: indexPath)
+        
+      //  items.remove(at: indexPath.row)
+        let item = items[indexPath.row]
+        managedObjectContext.delete(item)
+        do {
+           try managedObjectContext.save()
+        }catch {
+            print(error.localizedDescription)
+        }
         items.remove(at: indexPath.row)
-//        let deletedText = items[indexPath.row].text!
-//
-//        delete(taskName: deletedText)
         tableView.reloadData()
     }
     
@@ -148,6 +160,32 @@ class BactListViewController: UITableViewController, AddDelegat {
             print(error.localizedDescription)
         }
         }
+//    func delete(taskName:IndexPath) {
+//
+//
+//               // update the task item array
+//               let request = NSFetchRequest<BucktListItems>.init(entityName: "BucktListItems")
+//
+//               // query or filter
+//
+//               let deletText1 = items[taskName.row].text!
+//
+//        print(deletText1)
+//
+//               let predicate = NSPredicate.init(format: "name = %@", deletText1)
+//               request.predicate = predicate
+//
+//               do {
+//                    let taskItem = try managedObjectContext.fetch(request)
+//
+//                   if let item = taskItem.first{
+//                        managedObjectContext.delete(item)
+//                        fitchAllData()
+//                   }
+//               } catch {
+//                   print(error.localizedDescription)
+//               }
+//           }
     
    
 
