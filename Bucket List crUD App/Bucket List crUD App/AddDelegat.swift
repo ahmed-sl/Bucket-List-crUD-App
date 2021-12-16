@@ -8,7 +8,7 @@
 import Foundation
 
 protocol AddDelegat: AnyObject {
-    func itemSaved(by conroller: AddItemsViewController, with text: String, at indexPath: NSIndexPath?)
+    func itemSaved(with text: String, at indexPath: NSIndexPath?)
     
-    func cancelButtonPressed(by conroller: AddItemsViewController)
+    func cancelButtonPressed()
 }

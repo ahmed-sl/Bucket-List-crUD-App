@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		004A4C1F2769F8CE0095358E /* BucktList.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 004A4C1D2769F8CD0095358E /* BucktList.xcdatamodeld */; };
+		004A4C26276A28A20095358E /* BucktListItems+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 004A4C24276A28A20095358E /* BucktListItems+CoreDataClass.swift */; };
+		004A4C27276A28A20095358E /* BucktListItems+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 004A4C25276A28A20095358E /* BucktListItems+CoreDataProperties.swift */; };
 		0089BDC827688D4400D9ECCB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0089BDC727688D4400D9ECCB /* AppDelegate.swift */; };
 		0089BDCA27688D4400D9ECCB /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0089BDC927688D4400D9ECCB /* SceneDelegate.swift */; };
 		0089BDCC27688D4400D9ECCB /* BactListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0089BDCB27688D4400D9ECCB /* BactListViewController.swift */; };
@@ -18,6 +21,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		004A4C1E2769F8CD0095358E /* BucktList.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = BucktList.xcdatamodel; sourceTree = "<group>"; };
+		004A4C24276A28A20095358E /* BucktListItems+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BucktListItems+CoreDataClass.swift"; sourceTree = "<group>"; };
+		004A4C25276A28A20095358E /* BucktListItems+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BucktListItems+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		0089BDC427688D4400D9ECCB /* Bucket List crUD App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Bucket List crUD App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0089BDC727688D4400D9ECCB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0089BDC927688D4400D9ECCB /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -44,6 +50,8 @@
 		0089BDBB27688D4400D9ECCB = {
 			isa = PBXGroup;
 			children = (
+				004A4C24276A28A20095358E /* BucktListItems+CoreDataClass.swift */,
+				004A4C25276A28A20095358E /* BucktListItems+CoreDataProperties.swift */,
 				0089BDC627688D4400D9ECCB /* Bucket List crUD App */,
 				0089BDC527688D4400D9ECCB /* Products */,
 			);
@@ -63,6 +71,7 @@
 				0089BDC727688D4400D9ECCB /* AppDelegate.swift */,
 				0089BDC927688D4400D9ECCB /* SceneDelegate.swift */,
 				0089BDCB27688D4400D9ECCB /* BactListViewController.swift */,
+				004A4C1D2769F8CD0095358E /* BucktList.xcdatamodeld */,
 				0089BDCD27688D4400D9ECCB /* Main.storyboard */,
 				0089BDDF2768A70500D9ECCB /* AddDelegat.swift */,
 				0089BDDB2768943000D9ECCB /* AddItemsViewController.swift */,
@@ -145,9 +154,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				0089BDCC27688D4400D9ECCB /* BactListViewController.swift in Sources */,
+				004A4C1F2769F8CE0095358E /* BucktList.xcdatamodeld in Sources */,
 				0089BDE02768A70500D9ECCB /* AddDelegat.swift in Sources */,
 				0089BDDC2768943100D9ECCB /* AddItemsViewController.swift in Sources */,
+				004A4C27276A28A20095358E /* BucktListItems+CoreDataProperties.swift in Sources */,
 				0089BDC827688D4400D9ECCB /* AppDelegate.swift in Sources */,
+				004A4C26276A28A20095358E /* BucktListItems+CoreDataClass.swift in Sources */,
 				0089BDCA27688D4400D9ECCB /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -368,6 +380,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		004A4C1D2769F8CD0095358E /* BucktList.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				004A4C1E2769F8CD0095358E /* BucktList.xcdatamodel */,
+			);
+			currentVersion = 004A4C1E2769F8CD0095358E /* BucktList.xcdatamodel */;
+			path = BucktList.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 0089BDBC27688D4400D9ECCB /* Project object */;
 }

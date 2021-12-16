@@ -7,31 +7,38 @@
 
 import UIKit
 
-class AddItemsViewController: UITableViewController {
+class AddItemsViewController: UIViewController {
     
     weak var delgate: AddDelegat?
     var item: String?
     var ind: NSIndexPath?
     
     @IBOutlet weak var itemText: UITextField!
-    
-    @IBAction func CancelPressed(_ sender: UIBarButtonItem) {
-        delgate?.cancelButtonPressed(by: self)
-    }
-    
-    @IBAction func saveButtonPressed(_ sender: UIBarButtonItem) {
-        let txt = itemText.text!
-        delgate?.itemSaved(by: self, with: txt, at: ind)
+
+    @IBAction func CancelPressed(_ sender: UIButton) {
+       // delgate?.cancelButtonPressed()
         
+        print("Cancel Pressed")
+        self.navigationController?.popViewController(animated: true)
+    }
+
+    @IBAction func saveButtonPressed(_ sender: UIButton) {
+        let txt = itemText.text!
+        delgate?.itemSaved(with: txt, at: ind)
+        
+        self.navigationController?.popViewController(animated: true)
+        print("Save Pressed")
+        print("\(txt)")
+
 
     }
     override func viewDidLoad() {
         super.viewDidLoad()
 
         itemText.text = item
-        
+
     }
-    
+
 
     
 

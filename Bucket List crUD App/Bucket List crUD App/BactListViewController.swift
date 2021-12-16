@@ -6,15 +6,18 @@
 //
 
 import UIKit
+import CoreData
 
 class BactListViewController: UITableViewController, AddDelegat {
     
-    var items = ["somthimg","doing","Jeddah","somthing else"]
-
+    var items = [BucktListItems]()
+    
+    let managedObjectContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        
+        //fitchAllData()
         print("Loooddeeedd")
     }
 
@@ -24,59 +27,87 @@ class BactListViewController: UITableViewController, AddDelegat {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MyCell", for: indexPath)
         
-        cell.textLabel?.text = items[indexPath.row]
+        cell.textLabel?.text = items[indexPath.row].text!
         
         return cell
     }
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("selected!!")
-    }
+//    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        print("selected!!")
+//    }
     
     override func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
         
-        performSegue(withIdentifier: "AddSegue", sender: indexPath)
+        let nav2 = storyboard?.instantiateViewController(withIdentifier: "EditScreen") as! AddItemsViewController
+        self.navigationController?.pushViewController(nav2, animated: true)
+
+        
     }
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         items.remove(at: indexPath.row)
         tableView.reloadData()
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    func fitchAllData(){
+
+        let requst = NSFetchRequest<BucktListItems>(entityName: "BucktListItems")
         
-        if sender is UIBarButtonItem{
-            let navegations = segue.destination as! UINavigationController
-            let addItemsCon = navegations.topViewController as! AddItemsViewController
-            addItemsCon.delgate = self
-        } else if sender is IndexPath{
-            
-            let navegations = segue.destination as! UINavigationController
-            let addItemsCon = navegations.topViewController as! AddItemsViewController
-            addItemsCon.delgate = self
-            
-            let indexpath = sender as! NSIndexPath
-            let item = items[indexpath.row]
-            addItemsCon.item = item
-            addItemsCon.ind = indexpath
+        do {
+            items =  try managedObjectContext.fetch(requst)
+            tableView.reloadData()
+        }catch{
+            print(error)
         }
-        
     }
-    func cancelButtonPressed(by contoller: AddItemsViewController) {
+    
+    func cancelButtonPressed() {
         print("I am cancel and o Presssed!!")
         dismiss(animated: true)
     }
     
-    func itemSaved(by conroller: AddItemsViewController, with text: String, at indexPath: NSIndexPath?) {
+    
+    
+    func itemSaved(with text: String, at indexPath: NSIndexPath?) {
         print("I am Save and o Presssed!! and receved the text = \(text)")
         
         if let inpth = indexPath {
-            items[inpth.row] = text
+            let item = items[inpth.row]
+            item.text = text
         }else {
-            items.append(text)
-            
+            saveTask(task: text)
         }
-        tableView.reloadData()
+        
+//        tableView.reloadData()
         dismiss(animated: true)
     }
+    
+    @IBAction func nextScreen(_ sender: UIBarButtonItem) {
+        
+        let editSc = storyboard?.instantiateViewController(withIdentifier: "EditScreen") as! AddItemsViewController
+        editSc.delgate = self
+        self.navigationController?.pushViewController(editSc, animated: true)
+        
+    }
+    
+    func saveTask(task: String) {
+            //1. get updated app context
+//            let context = getContext()
+            
+            //2. Creating NSManagedObject
+            let taskItem = BucktListItems.init(context: managedObjectContext) // important
+            taskItem.text = task
+           
+            
+            //3. save context
+            do {
+                try managedObjectContext.save()
+                fitchAllData()
+            } catch {
+                // error handling
+                print(error.localizedDescription)
+            }
+        }
+
+    
 }
 
