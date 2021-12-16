@@ -11,7 +11,7 @@ class AddItemsViewController: UIViewController {
     
     weak var delgate: AddDelegat?
     var item: String?
-    var ind: NSIndexPath?
+    var ind: IndexPath?
     
     @IBOutlet weak var itemText: UITextField!
 
@@ -36,6 +36,7 @@ class AddItemsViewController: UIViewController {
         super.viewDidLoad()
 
         itemText.text = item
+        print("IndexPath : \(ind)")
 
     }
 

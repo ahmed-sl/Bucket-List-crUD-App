@@ -11,14 +11,16 @@ import CoreData
 class BactListViewController: UITableViewController, AddDelegat {
     
     var items = [BucktListItems]()
+    weak var delgate: AddDelegat?
     
     let managedObjectContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
      
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        //fitchAllData()
+        fitchAllData()
         print("Loooddeeedd")
+        
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -39,12 +41,20 @@ class BactListViewController: UITableViewController, AddDelegat {
     override func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
         
         let nav2 = storyboard?.instantiateViewController(withIdentifier: "EditScreen") as! AddItemsViewController
+        nav2.delgate = self
+        nav2.ind = indexPath
+        nav2.item = items[indexPath.row].text
         self.navigationController?.pushViewController(nav2, animated: true)
+//        let updaetText = items[indexPath.row].text!
+//          updateTask(oldTaskName: updaetText)
 
         
     }
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         items.remove(at: indexPath.row)
+//        let deletedText = items[indexPath.row].text!
+//
+//        delete(taskName: deletedText)
         tableView.reloadData()
     }
     
@@ -67,12 +77,15 @@ class BactListViewController: UITableViewController, AddDelegat {
     
     
     
-    func itemSaved(with text: String, at indexPath: NSIndexPath?) {
+    func itemSaved(with text: String, at indexPath: IndexPath?) {
         print("I am Save and o Presssed!! and receved the text = \(text)")
         
-        if let inpth = indexPath {
-            let item = items[inpth.row]
-            item.text = text
+        if let inpth = indexPath,
+           let name = items[inpth.row].text{
+            
+            
+            
+            updateTask(oldTaskName: name, newName: text)
         }else {
             saveTask(task: text)
         }
@@ -86,6 +99,7 @@ class BactListViewController: UITableViewController, AddDelegat {
         let editSc = storyboard?.instantiateViewController(withIdentifier: "EditScreen") as! AddItemsViewController
         editSc.delgate = self
         self.navigationController?.pushViewController(editSc, animated: true)
+        
         
     }
     
@@ -107,6 +121,35 @@ class BactListViewController: UITableViewController, AddDelegat {
                 print(error.localizedDescription)
             }
         }
+    func updateTask(oldTaskName:String, newName:String) {
+         //   let context = getContext()
+                    
+            // update the task item array
+            let request = NSFetchRequest<BucktListItems>.init(entityName: "BucktListItems")
+            
+            // query or filter
+        
+        
+        
+        let predecat = NSPredicate.init(format: "text==%@", oldTaskName)
+            request.predicate = predecat
+        do {
+            // fetch
+            let arr = try managedObjectContext.fetch(request)
+            var item = arr.first
+            // update
+            item?.text = newName
+            
+            // save
+            try managedObjectContext.save()
+            // refresh the ui with updated data
+            fitchAllData()
+        } catch {
+            print(error.localizedDescription)
+        }
+        }
+    
+   
 
     
 }
